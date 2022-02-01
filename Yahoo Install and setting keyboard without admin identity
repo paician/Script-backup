@@ -1,0 +1,89 @@
+@echo off&Setlocal EnableExtensions Enabledelayedexpansion
+
+set /A check=0
+set input_default=E0200404
+for /f "delims= " %%B in (
+    'REG Query "HKU\.DEFAULT\Keyboard Layout\Preload" ^
+    ^| Findstr %input_default%'
+) do (
+    
+    set check=1
+    goto :start
+)
+
+If !check!==0 (
+    echo 
+    echo call "[install path]"
+    timeout /t 2
+    echo 
+    ) Else (
+        echo Already Installed yahoo input software
+        )
+        
+:start
+echo Check Sid for Current user...
+For /F "delims= " %%C in ('"wmic path win32_useraccount where name='%username%' get sid"') do (
+    if not "%%C"=="SID" (
+       set varsid=%%C
+       goto :countline
+    )
+    
+)
+
+:countline
+REM
+MD %userprofile%\Keyboard_Value_Bk
+REG Export "HKU\%varsid%\Keyboard Layout\Preload" ^
+    ^"%userprofile%\Keyboard_Value_Bk\%date:~0,4%%date:~5,2%%date:~8,2%_Keyboard_Value_Bk.reg"
+Timeout /t 1
+echo Check count lines of Keyboard Layout\Preload For user side
+REM
+
+set /A count=0
+set /A yahoo=0
+set input1=E0210404
+REM
+
+For /F "delims= " %%A in (
+    'REG Query "HKU\%varsid%\Keyboard Layout\Preload" ^
+    ^| Findstr /L /B /V /C:"REG"'
+) do (
+    set /A count+=1
+    set keyboard=%%A
+    
+)
+
+REM
+For /F "delims= " %%G in (
+    'REG Query "HKU\%varsid%\Keyboard Layout\Preload" ^
+    ^| Findstr %input1%'
+) do (
+    REM
+    REG DELETE "HKU\%varsid%\Keyboard Layout\Preload" /v %%G
+    echo 
+    Timeout /t 2
+)
+
+REM
+echo : %keyboard%
+
+For /F "delims= " %%B in (
+    'REG Query "HKU\%varsid%\Keyboard Layout\Preload" ^
+    ^| Findstr %input1%'
+) do (
+    REM
+    set yahoo=1
+)
+REM
+If !yahoo!==0 (
+    echo Add new line for Preload of %count%
+    REG ADD "HKU\%varsid%\Keyboard Layout\Preload" /v %count% /d %input1%
+    ) Else (
+        echo Already exist value of %input1%
+        )
+        
+Timeout /t 2
+echo
+pause
+Endlocal
+Exit

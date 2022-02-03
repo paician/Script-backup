@@ -44,7 +44,7 @@ REM 假定計算總行數基礎值
 
 set /A count=0
 set /A yahoo=0
-set input1=E0210404
+set input1=E0200404
 REM 篩選登陸檔值輸出結果中的空格，以確保得到不包含空白的值。並計算總行數
 
 For /F "delims= " %%A in (
@@ -59,7 +59,7 @@ For /F "delims= " %%A in (
 REM 檢查當前使用者是否有設置類似第三方輸入法的值，這邊僅查詢E0210404而沒有E0200404情況
 For /F "delims= " %%G in (
     'REG Query "HKU\%varsid%\Keyboard Layout\Preload" ^
-    ^| Findstr %input1%'
+    ^| Findstr E0210404'
 ) do (
     REM 檢查如果有第二順位的第三方繁體輸入法進行「刪除」以確保真實性設定值
     REG DELETE "HKU\%varsid%\Keyboard Layout\Preload" /v %%G

@@ -1,0 +1,44 @@
+#Include <file.au3>
+#Include <array.au3>
+#Include <WindowsConstants.au3>
+#Include <GUIConstantsEx.au3>
+#Include <MsgBoxConstants.au3>
+#Include <ButtonConstants.au3>
+#Include <EditConstants.au3>
+#Include <WinAPIIcons.au3>
+
+
+
+
+
+
+
+
+
+
+
+
+$user = @SystemDir & "\user32.dll"
+$user = @SystemDir & "\shell32.dll"
+$icoD = -4
+Global $sAdminUser = "username"
+Global $sAdminPassword = "password"
+Global $sDomain = @Computername
+Global $iLogOnFlag = 0
+Global $sParameters = ""
+$Date = @YEAR & "." & @MON & "." & @MDAY
+
+
+$lnk_file = ""
+
+#Region ##
+$Forml = GUICreate("快捷修改BAT工具", 781, 442, 14, 49)
+$Input1 = GUICtrlCreateInput("", 150, 40, 256, 21)
+GUICtrlSetTip($Input1, "這裡不需要輸入")
+$btn1 = GUICtrlCreateButton("Browser", 128, 80, 20, 20,$BS_ICON)
+GUICtrlSetTip($btn1, "請選擇編輯存放位置")
+GUICtrlSetImage($btn1, $shell, $icoD, 0)
+;GUICtrlSetTip($btn1, "請選擇編輯存放位置")
+$Input2 = GUICtrlCreateInput("", 150, 80, 256, 21)
+GUICtrlSetTip($Input2, "123")
+$menu_run = 

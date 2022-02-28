@@ -41,4 +41,40 @@ GUICtrlSetImage($btn1, $shell, $icoD, 0)
 ;GUICtrlSetTip($btn1, "請選擇編輯存放位置")
 $Input2 = GUICtrlCreateInput("", 150, 80, 256, 21)
 GUICtrlSetTip($Input2, "123")
-$menu_run = 
+$menu_run = GUICtrlCreateCombo("請選擇", 152, 120, 121, 24)
+GUICtrlSetFont(-1, 10.5)
+GUICtrlSetTip($menu_run, "選擇對應的要放入BAT所屬資料夾")
+GUICtrlSetData(-1, "admin_tools|Adobe|Axure|browser|Cs_Software|Current_user|Design|Developer|Others_Software|System_Tool", "請選擇")
+$btnsaved = GUICtrlCreateButton("(bowser)", 129, 158, 20, 20,$BS_ICON)
+GUICtrlSetTip($btn1, "請選擇編輯存放位置")
+GUICtrlSetImage($btnsaved, $shell, $icoD, 0)
+
+$OK = GUICtrlCreateButton("存檔", 10, 400, 75, 25, $WS_GROUP)
+GUICtrlSetTip($OK, "請勾選保存設定")
+$SaveCreds = GUICtrlCreateCheckbox("保存設定", 152, 399, 97, 17)
+GUICtrlSetTip($SaveCreds, "以上欄位都打好就可以勾選")
+$Label1 = GUICtrlCreateLabel("檔案名稱", 8, 40, 99, 27)
+$Label2 = GUICtrlCreateLabel("目標程式", 8, 80, 65, 27)
+$Label3 = GUICtrlCreateLabel("要放置的BAT路徑", 8, 120, 115, 19)
+$Label4 = GUICtrlCreateLabel("快捷修改BAT工具", 9, 11, 94, 14)
+
+$hEdit = GUICtrlCreateEdit("", 263, 271, 333, 151)
+$Label5 = GUICtrlCreateLabel("test", 8, 158, 102, 21)
+$hInput3 = GUICtrlCreateInput("Input", 153, 160, 250, 18)
+$btn2 = GUICtrlCreateButton("check", 513, 223, 56, 34)
+GUICtrlSetTip($btn2, "按此按鈕會輸入正確目標程式路徑")
+GUISetState(@SW_SHOW)
+$title = "Choese .exe or .msi file"
+
+Local $nMsg = 0
+
+
+
+
+
+While 1
+$nMsg = GUIGetMsg()
+Switch $nMsg
+    Case $GUI_Event_CLOSE
+          ExitLoop
+          
